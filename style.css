@@ -1,0 +1,354 @@
+:root {
+  --primary: #00ff41; /* Ultra Neon Green */
+  --primary-dark: #00cc33; 
+  --success: #00cc33; 
+  --danger: #ff0055; /* Aggressive Red/Pink for failure */
+  --light: #e0e0e0; /* Near white for main text */
+  --dark: #000000; /* Pure Black for container elements */
+  --gray: #333333; /* Darker gray for subtle lines */
+  --gold: #ffc107;
+  --background-color: #05050f; /* Deepest blue/black base */
+  --terminal-font: 'Consolas', 'Courier New', monospace; /* Monospace font for density */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', 'Segoe UI', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: var(--light);
+  line-height: 1.6;
+  overflow: hidden;
+  background-color: var(--background-color);
+}
+
+#particle-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+/* --- General UI Components --- */
+.primary-btn {
+  font-family: var(--terminal-font); /* Terminal font for buttons */
+  font-size: 1.1rem;
+  padding: 14px 30px;
+  background: var(--primary);
+  color: var(--dark);
+  border: none;
+  border-radius: 5px; /* Sharper edges */
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px var(--primary); /* Intense button glow */
+}
+
+.primary-btn:hover {
+  background: var(--primary-dark);
+  box-shadow: 0 0 30px var(--primary); /* Stronger hover glow */
+  transform: scale(1.02);
+}
+
+.hide {
+  display: none !important;
+}
+
+/* --- Home Screen --- */
+#home-screen {
+  text-align: center;
+  color: white;
+  animation: fadeIn 1s ease-in-out;
+  padding: 20px;
+}
+
+.home-content {
+  background: rgba(0, 0, 0, 0.95); /* Nearly opaque black */
+  padding: 3rem 4rem;
+  border-radius: 5px; /* Sharper container edges */
+  backdrop-filter: blur(5px); 
+  border: 2px solid var(--primary); /* Distinct border */
+  box-shadow: 0 0 50px rgba(0, 255, 65, 0.5); /* Strong box shadow */
+  font-family: var(--terminal-font);
+}
+
+.home-content h1 {
+  font-size: 4rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary); 
+  text-shadow: 0 0 15px rgba(0, 255, 65, 1); /* Intense neon title glow */
+}
+
+.home-content p {
+  font-size: 1.2rem;
+  margin-bottom: 2.5rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.home-icon {
+  font-size: 5rem;
+  margin-bottom: 1rem;
+  color: var(--primary); 
+  animation: float 3s ease-in-out infinite, neon-glow 1.5s ease-in-out infinite alternate;
+}
+
+/* --- Quiz Container & Topic Select --- */
+#quiz-container {
+  width: 95%;
+  max-width: 900px;
+  background: rgba(0, 0, 0, 0.98); /* Almost pure black */
+  padding: 3rem;
+  border-radius: 5px;
+  box-shadow: 0 0 70px rgba(0, 255, 65, 0.6); 
+  text-align: center;
+  backdrop-filter: blur(10px);
+  border: 2px solid var(--primary);
+  color: var(--light); 
+  max-height: 95vh;
+  overflow-y: auto;
+  font-family: var(--terminal-font);
+}
+
+#topic-select-screen h2 {
+    color: var(--primary);
+    margin-bottom: 2rem;
+    text-shadow: 0 0 5px rgba(0, 255, 65, 0.8);
+}
+
+.select-group {
+    margin-bottom: 1.5rem;
+}
+
+.select-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 400; 
+    color: var(--primary); /* Neon label text */
+}
+
+.select-group select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 0; /* Sharper select box */
+    border: 1px solid var(--primary);
+    background-color: var(--gray); /* Dark gray input background */
+    color: var(--primary);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: border-color 0.3s;
+    appearance: none;
+    -webkit-appearance: none;
+    font-family: var(--terminal-font);
+}
+
+.select-group select:focus {
+    outline: 2px solid var(--primary);
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.8);
+    background-color: #1a1a1a;
+}
+
+
+/* --- Quiz Screen --- */
+.quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    font-weight: 700;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.score-display {
+    color: var(--light);
+}
+
+#question-number {
+    font-size: 1rem;
+    color: var(--primary);
+    text-transform: uppercase;
+}
+
+#question {
+    margin: 20px 0 30px;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--light);
+}
+
+.progress-container {
+  width: 100%;
+  height: 12px;
+  background: var(--gray);
+  border: 1px solid var(--primary);
+  border-radius: 0;
+  overflow: hidden;
+  flex-grow: 1;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: var(--primary); 
+  box-shadow: 0 0 10px var(--primary);
+  transition: width 0.4s ease-in-out;
+}
+
+#answers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px; /* Reduced gap for a denser look */
+    margin-top: 20px;
+}
+
+.answer-btn {
+  background: var(--dark);
+  color: var(--primary); /* Neon text on dark answers */
+  border: 1px solid var(--primary);
+  padding: 18px 25px;
+  border-radius: 0;
+  cursor: pointer;
+  font-size: 1rem;
+  text-align: left;
+  transition: all 0.2s ease-in-out;
+  font-family: var(--terminal-font);
+}
+
+.answer-btn:hover:not([disabled]) {
+  background: rgba(0, 255, 65, 0.2); /* Neon background on hover */
+  border-color: var(--primary);
+  color: var(--light);
+  box-shadow: 0 0 5px rgba(0, 255, 65, 0.8);
+  transform: none; /* No movement on hover */
+}
+
+.answer-btn.selected {
+  border: 2px solid var(--primary);
+  background: rgba(0, 255, 65, 0.4);
+  box-shadow: 0 0 15px var(--primary);
+}
+
+.answer-btn.correct {
+  background: var(--success);
+  border-color: var(--success);
+  color: var(--dark);
+  font-weight: 700;
+  box-shadow: none;
+}
+
+.answer-btn.wrong {
+  background: var(--danger);
+  border-color: var(--danger);
+  color: white;
+  font-weight: 700;
+  opacity: 1; 
+}
+
+#explanation {
+  margin-top: 30px;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.8); 
+  border-radius: 0;
+  border: 1px dashed var(--primary); /* Dashed border for terminal look */
+  text-align: left;
+  color: var(--light);
+  font-style: normal;
+  font-size: 1rem;
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.4);
+}
+
+#explanation strong {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+/* --- Result Screen --- */
+.result-content {
+    background: var(--dark);
+    padding: 3rem;
+    border-radius: 5px;
+    border: 2px solid var(--primary);
+    box-shadow: 0 0 40px rgba(0, 255, 65, 0.8);
+}
+
+.result-icon i {
+  font-size: 7rem;
+  margin-bottom: 1.5rem;
+  display: inline-block;
+}
+
+.result-score {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 1.5rem 0;
+    color: var(--primary);
+}
+
+.result-high-score .result-icon i {
+  color: var(--primary); 
+  animation: bounce 1s, neon-result-glow 1.5s ease-in-out infinite alternate;
+}
+
+.result-high-score h2 {
+    color: var(--primary);
+    text-shadow: 0 0 10px rgba(0, 255, 65, 1);
+}
+
+.result-low-score .result-icon i {
+  color: var(--danger);
+  animation: shake 0.5s;
+}
+
+.result-low-score h2 {
+    color: var(--danger);
+}
+
+/* --- Keyframes --- */
+@keyframes neon-glow {
+    from {
+        text-shadow: 0 0 10px var(--primary), 0 0 20px var(--primary);
+    }
+    to {
+        text-shadow: 0 0 20px var(--primary), 0 0 50px rgba(0, 255, 65, 1);
+    }
+}
+
+@keyframes neon-result-glow {
+    from {
+        text-shadow: 0 0 10px var(--primary), 0 0 30px var(--primary);
+    }
+    to {
+        text-shadow: 0 0 30px var(--primary), 0 0 80px rgba(0, 255, 65, 1);
+    }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-20px); }
+  60% { transform: translateY(-10px); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-5px); }
+  40%, 80% { transform: translateX(5px); }
+}

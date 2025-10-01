@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CyberSec Quiz - Test Your Defense</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  </head>
+  <body>
+    <canvas id="particle-canvas"></canvas>
+
+    <div id="home-screen">
+      <div class="home-content">
+        <i class="fas fa-shield-alt home-icon"></i>
+        <h1>CyberSec Quiz</h1>
+        <p>The ultimate test of your digital defense skills. Are you ready?</p>
+        <button id="enter-quiz-btn" class="primary-btn">
+          <i class="fas fa-arrow-right"></i> Start The Assessment
+        </button>
+      </div>
+    </div>
+
+    <div id="quiz-container" class="hide">
+      <div id="topic-select-screen" class="screen">
+        <h2>Select Your Domain</h2>
+        <div class="select-group">
+          <label for="topic-select">Cyber Security Domain:</label>
+          <select id="topic-select">
+            </select>
+        </div>
+        <div class="select-group">
+          <label for="question-count-select">Questions to attempt:</label>
+          <select id="question-count-select">
+            <option value="10">10 Questions</option>
+            <option value="20">20 Questions</option>
+            <option value="30" selected>All Questions (30)</option>
+          </select>
+        </div>
+        <button id="start-quiz-btn" class="primary-btn">
+          <i class="fas fa-play"></i> Begin Test
+        </button>
+      </div>
+
+      <div id="quiz-screen" class="screen hide">
+        <p id="question-number" class="subtitle"></p>
+        <div class="quiz-header">
+          <div class="score-display">
+            Score: <span id="current-score">0</span>
+          </div>
+          <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+          </div>
+        </div>
+        <h2 id="question">Question here</h2>
+        <div id="answers"></div>
+        <div id="explanation" class="hide"></div>
+        <button id="next-btn" class="primary-btn hide">
+          Next <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+
+      <div id="result-screen" class="screen hide">
+        <div id="result-content" class="result-content">
+          <div id="result-icon-container" class="result-icon"></div>
+          <h2 id="result-title">Quiz Completed!</h2>
+          <p class="result-score">Your Score: <span id="score"></span></p>
+          <p id="result-message"></p>
+          <button id="restart-btn" class="primary-btn">
+            <i class="fas fa-redo"></i> Try Again
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+  </body>
+</html>
